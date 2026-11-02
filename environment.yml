@@ -1,0 +1,26 @@
+# Environment for knowledge_probe_template.ipynb and filter_audit_template.ipynb
+#   conda env create -f environment.yml
+#   conda activate atml-littlelearner
+#   python -m ipykernel install --user --name atml-littlelearner   # makes it selectable in Jupyter / VS Code
+#
+# PyTorch comes from the CUDA 12.6 wheel index (works on the RTX 4070, and still runs on CPU-only
+# machines). On a Mac there are no CUDA wheels, so pip falls back to the normal PyPI build with
+# Apple-GPU (MPS) support. Laptop without an NVIDIA GPU and want a smaller download: delete the
+# --extra-index-url line.
+name: atml-littlelearner
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - jupyterlab
+  - ipykernel
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu126
+      - torch
+      - transformers>=4.56
+      - accelerate
+      # - bitsandbytes   # optional: 8-bit loading if the 5B model runs out of GPU memory (NVIDIA only)
